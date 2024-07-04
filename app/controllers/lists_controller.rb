@@ -5,20 +5,23 @@ class ListsController < ApplicationController
 
   def show
     @list = List.find(params[:id])
-    @bookmarks = @list.bookmarks
-  end
-
-  def new
-    @list = List.new
+    @bookmark = Bookmark.new
   end
 
   def create
     @list = List.new(list_params)
     if @list.save
-      redirect_to @list
+      redirect_to lists_path, notice: 'List was successfully created.'
     else
-      render :new
+      @lists = List.all
+      render :index
     end
+  end
+
+  def destroy
+    @list = List.find(params[:id])
+    @list.destroy
+    redirect_to lists_path, notice: 'List was successfully deleted.'
   end
 
   private
