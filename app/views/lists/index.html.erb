@@ -4,20 +4,13 @@
   <div class="row mb-4">
     <div class="col">
       <h2>Create a New List</h2>
-      <%= form_with(model: @list, url: lists_path, local: true, class: "form-inline") do |form| %>
-        <div class="form-group mb-2">
-          <%= form.label :name, class: "sr-only" %>
-          <%= form.text_field :name, class: "form-control", placeholder: "List Name" %>
-        </div>
-        <div class="form-group mb-2 mx-sm-3">
-          <%= form.submit "Create List", class: "btn btn-primary" %>
+      <%= simple_form_for @list, url: lists_path, html: { class: "form-inline" } do |f| %>
+        <%= f.input :name, label: false, input_html: { class: "form-control", placeholder: "List Name" } %>
+        <%= f.button :submit, "Create List", class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col">
       <h2>All Lists</h2>
       <ul class="list-group">
         <% @lists.each do |list| %>
@@ -27,6 +20,4 @@
           </li>
         <% end %>
       </ul>
-    </div>
-  </div>
 </div>
