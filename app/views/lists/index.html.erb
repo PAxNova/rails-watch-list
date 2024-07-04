@@ -4,7 +4,7 @@
   <div class="row mb-4">
     <div class="col">
       <h2>Create a New List</h2>
-      <%= form_with(model: @list, local: true, class: "form-inline") do |form| %>
+      <%= form_with(model: @list, url: lists_path, local: true, class: "form-inline") do |form| %>
         <div class="form-group mb-2">
           <%= form.label :name, class: "sr-only" %>
           <%= form.text_field :name, class: "form-control", placeholder: "List Name" %>
