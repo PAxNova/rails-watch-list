@@ -1,2 +1,27 @@
-<h1>Lists#show</h1>
-<p>Find me in app/views/lists/show.html.erb</p>
+<h1 class="text-center my-4"><%= @list.name %></h1>
+
+<div class="container">
+  <div class="mb-4">
+    <h2>Bookmarks</h2>
+    <ul class="list-group">
+      <% @list.bookmarks.each do |bookmark| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <%= link_to bookmark.movie.title, movie_path(bookmark.movie) %>
+          <span><%= bookmark.comment %></span>
+          <%= link_to 'Delete', list_bookmark_path(@list, bookmark), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="mb-4">
+    <h2>Add a Bookmark</h2>
+    <%= simple_form_for [@list, @bookmark] do |f| %>
+      <%= f.association :movie, label_method: :title, value_method: :id, label: "Select Movie", input_html: { class: "form-control" } %>
+      <%= f.input :comment, label: "Comment", input_html: { class: "form-control", placeholder: "Add a comment" } %>
+      <%= f.button :submit, "Add Bookmark", class: "btn btn-primary mt-2" %>
+    <% end %>
+  </div>
+  
+  <%= link_to 'Back to all lists', lists_path, class: "btn btn-secondary" %>
+</div>
