@@ -5,7 +5,7 @@
     <div class="col">
       <h2>Create a New List</h2>
       <%= simple_form_for @list, url: lists_path, html: { class: "form-inline" } do |f| %>
-        <%= f.input :name, label: false, input_html: { placeholder: "List Name" } %>
+        <%= f.input :name, label: false, input_html: { placeholder: "List Name", class: "form-control" } %>
         <%= f.button :submit, "Create List", class: "btn btn-primary ml-2" %>
       <% end %>
     </div>
@@ -16,7 +16,9 @@
     <% @lists.each do |list| %>
       <li class="list-group-item d-flex justify-content-between align-items-center">
         <%= link_to list.name, list_path(list) %>
-        <%= link_to 'Delete', list_path(list), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+        <%= form_with(url: list_path(list), method: :delete) do |form| %>
+          <%= form.submit 'Delete', data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+        <% end %>
       </li>
     <% end %>
   </ul>
